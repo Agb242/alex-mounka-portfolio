@@ -176,8 +176,10 @@
   .wa-badge{position:absolute;top:-14px;right:-10px;display:flex;flex-direction:column;align-items:center;gap:2px;
     background:var(--surface);border:1px solid var(--accent);border-radius:10px;padding:7px 10px 6px;box-shadow:var(--shadow);
     transform:rotate(4deg);z-index:2}
-  .wa-badge svg{width:16px;height:16px}
+  .wa-badge svg{width:16px;height:16px;flex:none}
   .wa-badge span{font-family:var(--mono);font-size:.56rem;line-height:1.25;color:var(--accent);text-align:center;font-weight:600;white-space:nowrap}
+  @media (max-width:560px){ .wa-badge{top:-10px;right:-6px;padding:5px 7px 4px;border-radius:8px} .wa-badge svg{width:12px;height:12px} .wa-badge span{font-size:.46rem} }
+  @media (max-width:380px){ .wa-badge{transform:rotate(4deg) scale(.82);top:-8px;right:-8px} }
   .stat-row{position:relative;z-index:1;display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:1px;background:var(--border);border:1px solid var(--border);margin:44px 0 0;border-radius:10px;overflow:hidden}
   .stat{background:var(--surface);padding:16px 18px}
   .stat .n{font-family:var(--mono);font-size:1.4rem;font-weight:700;color:var(--accent)}
@@ -221,9 +223,14 @@
   .domain, .case, .edu-card, .values-card, .testi-card{position:relative}
 
   /* SKILLS DOMAIN CARDS */
-  .domain-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:16px}
+  .domain-grid{display:grid;grid-template-columns:1fr;gap:16px}
+  /* 5 cartes : 1 colonne sur mobile, 2 colonnes sur tablette (la dernière carte s'étire sur
+     toute la largeur pour éviter une rangée à moitié vide), 5 colonnes sur desktop large */
+  @media (min-width:701px) and (max-width:1099px){
+    .domain-grid{grid-template-columns:1fr 1fr}
+    .domain-grid .domain:last-child{grid-column:1 / -1}
+  }
   @media (min-width:1100px){ .domain-grid{grid-template-columns:repeat(5,1fr)} }
-  @media (max-width:700px){ .domain-grid{grid-template-columns:1fr} }
   .domain{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:20px;box-shadow:var(--shadow);border-top:3px solid var(--border);
     transition:transform .25s cubic-bezier(.2,.8,.2,1), border-color .25s ease, box-shadow .25s ease;}
   .domain:hover{transform:translateY(-4px);border-top-color:var(--accent);box-shadow:0 20px 40px -18px var(--accent-soft), var(--shadow)}
@@ -414,6 +421,23 @@
 
   @media (max-width:640px){
     .brand{display:none}
+  }
+
+  /* le strip de nav (Accueil/Résumé/Blog) est en overflow-x:auto — sur très petit écran, ce palier
+     resserre tout le reste de la topbar pour que les 3 liens tiennent sans défilement caché */
+  @media (max-width:480px){
+    .topbar-inner{gap:8px;padding:10px 14px}
+    nav.toc{font-size:.7rem}
+    nav.toc a{padding:6px 6px;gap:5px}
+    .theme-toggle{width:30px;height:30px}
+    .theme-toggle svg{width:14px;height:14px}
+    .topbar-cta{padding:8px 12px;font-size:.72rem}
+  }
+  @media (max-width:340px){
+    .topbar-inner{gap:6px;padding:10px 10px}
+    nav.toc a{padding:6px 4px}
+    .theme-toggle{width:28px;height:28px}
+    .topbar-cta{padding:7px 9px;font-size:.66rem}
   }
 
   @media (max-width:520px){
