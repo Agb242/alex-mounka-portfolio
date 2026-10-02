@@ -462,6 +462,67 @@
     .stat-row{grid-template-columns:1fr}
     #hero h1{font-size:1.55rem}
   }
+
+  /* MOBILE : moins de défilement vertical — carrousels horizontaux, textes longs repliables, espacements resserrés */
+  @media (max-width:700px){
+    section{padding:28px 20px}
+    .sec-head{margin-bottom:14px}
+    .sec-head h2{font-size:1.3rem}
+    #hero{padding-top:24px}
+    .hero-grid{gap:20px}
+    .status-line{margin-bottom:12px}
+    .hero-cta-row{margin-top:18px;gap:12px}
+    .stat-row{grid-template-columns:1fr 1fr;margin-top:20px}
+    .stat{padding:12px}
+    .stat .n{font-size:1.05rem}
+    .stat:last-child{grid-column:1 / -1}
+    .cv-intro, #services .lede{font-size:.9rem}
+    #services .cv-intro{display:-webkit-box;-webkit-line-clamp:4;-webkit-box-orient:vertical;overflow:hidden}
+
+    .domain-grid, .testi-grid{display:flex;gap:12px;overflow-x:auto;scroll-snap-type:x mandatory;margin:0 -20px;padding:4px 20px 12px;scrollbar-width:none;-webkit-overflow-scrolling:touch}
+    .domain-grid::-webkit-scrollbar, .testi-grid::-webkit-scrollbar{display:none}
+    .domain-grid .domain, .testi-grid .testi-card{flex:0 0 82%;scroll-snap-align:center}
+    .domain-grid .reveal, .testi-grid .reveal{opacity:1;transform:none}
+
+    .qa-item{padding:12px 0;gap:10px;cursor:pointer}
+    .qa-item h4{font-size:.95rem;line-height:1.35}
+    .qa-item h4::after{content:" +";color:var(--accent);font-family:var(--mono)}
+    .qa-item.open h4::after{content:" −"}
+    .qa-item p{display:none;margin-top:8px}
+    .qa-item.open p{display:block}
+    .qa-bridge{display:none}
+
+    .method-row{grid-template-columns:1fr 1fr}
+    .method-step{padding:14px;border-right:1px solid var(--border);border-bottom:1px solid var(--border)}
+    .method-step:nth-child(2n){border-right:none}
+    .method-step:nth-last-child(-n+2){border-bottom:none}
+    .method-step p{font-size:.76rem}
+    .frameworks{margin-top:14px;padding-top:14px}
+
+    .case{padding:14px 16px;margin-bottom:10px;cursor:pointer}
+    .case:not(.open) p.ctx, .case:not(.open) .result, .case:not(.open) .stack-row{display:none}
+    .case:not(.open) .badge{display:none}
+    .case-head{gap:4px}
+    .case-head h3{font-size:.95rem;line-height:1.3}
+    .group-label{margin:18px 0 10px}
+    .case::after{content:"Voir le détail +";display:block;margin-top:6px;font-family:var(--mono);font-size:.7rem;color:var(--accent)}
+    .case.open::after{content:"Réduire −"}
+    .tl-item{padding-bottom:14px;cursor:pointer}
+    .tl-item:not(.open) p{display:none}
+    .about-copy{cursor:pointer}
+    .about-copy:not(.open) p:not(.lead){display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}
+    .note-item{cursor:pointer}
+    .note-item:not(.open) p{display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+    .matrix{margin-bottom:16px}
+    .cta-band{margin-top:18px;padding:16px}
+
+    .featured-post{padding:18px}
+    .featured-post .excerpt{display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}
+    .post-card{padding:14px 16px;gap:8px}
+    .post-card .excerpt{display:none}
+    .post-grid{gap:10px}
+    .note{margin-top:18px;padding-top:14px}
+  }
 </style>
 
 <script>
@@ -2145,6 +2206,13 @@ async function downloadDossier(which){
     }
   }catch(e){}
 })();
+</script>
+<script>
+document.addEventListener('click', function(e){
+  if(!e.target.closest || e.target.closest('a, button')) return;
+  var t = e.target.closest('.qa-item, .case, .tl-item, .note-item, .about-copy');
+  if(t) t.classList.toggle('open');
+});
 </script>
 </body>
 </html>
